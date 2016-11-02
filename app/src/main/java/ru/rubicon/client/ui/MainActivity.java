@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements IShowUser {
         super.onCreate(savedInstanceState);
         initView();
 
-        Basement.setComponent(this);
+        Basement.setPresenterComponent(this);
         IPresenterComponent component = Basement.getComponent();
         component.inject(this);
     }
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements IShowUser {
     public void show(User user) {
         tvText1.setText("Name : "+user.getName());
         tvText2.setText("Age : "+user.getAge());
-        Intent intent = new Intent(this, GithubActivity.class);
+        Intent intent = new Intent(this, GitHubActivity.class);
         startActivity(intent);
     }
 

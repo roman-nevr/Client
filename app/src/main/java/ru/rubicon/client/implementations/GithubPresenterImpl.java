@@ -10,20 +10,20 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
-import ru.rubicon.client.interfaces.IGithubPresenter;
-import ru.rubicon.client.interfaces.IGithubView;
+import ru.rubicon.client.interfaces.IGitHubPresenter;
+import ru.rubicon.client.interfaces.IGitHubView;
 import ru.rubicon.client.model.GitModel;
 
 /**
  * Created by Витя on 02.11.2016.
  */
 
-public class GithubPresenterImpl implements IGithubPresenter{
+public class GitHubPresenterImpl implements IGitHubPresenter {
 
-    private IGithubView view;
+    private final IGitHubView view;
 
     @Inject
-    public GithubPresenterImpl(IGithubView view) {
+    public GitHubPresenterImpl(IGitHubView view) {
         this.view = view;
     }
 

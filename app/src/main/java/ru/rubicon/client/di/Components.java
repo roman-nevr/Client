@@ -1,6 +1,9 @@
 package ru.rubicon.client.di;
 
 import dagger.Component;
+import ru.rubicon.client.interfaces.IGitHubPresenter;
+import ru.rubicon.client.interfaces.IGitHubView;
+import ru.rubicon.client.ui.GitHubActivity;
 import ru.rubicon.client.ui.MainActivity;
 import ru.rubicon.client.interfaces.IPresenter;
 
@@ -16,6 +19,14 @@ public class Components {
 
         IPresenter getPresenter();
     }
+
+    @Component(modules = {GitHubPresenterModule.class})
+    public interface IGitHubComponent {
+        void inject(GitHubActivity view);
+
+        IGitHubPresenter getGitHubPresenter();
+    }
+
 }
 
 

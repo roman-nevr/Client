@@ -1,4 +1,4 @@
-package ru.rubicon.client;
+package ru.rubicon.client.implementations;
 
 import javax.inject.Inject;
 

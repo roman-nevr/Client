@@ -1,10 +1,10 @@
 package ru.rubicon.client;
 
 import android.app.Application;
-import javax.inject.*;
-import dagger.*;
-import ru.rubicon.client.di.DaggerIPresenterComponent;
-import ru.rubicon.client.di.IPresenterComponent;
+
+import ru.rubicon.client.di.Components.IPresenterComponent;
+
+import ru.rubicon.client.di.DaggerComponents_IPresenterComponent;
 import ru.rubicon.client.di.ViewModule;
 import ru.rubicon.client.interfaces.IShowUser;
 
@@ -14,6 +14,7 @@ import ru.rubicon.client.interfaces.IShowUser;
  */
 
 public class Basement extends Application {
+
     private float data;
     private static IPresenterComponent component;
 
@@ -30,7 +31,7 @@ public class Basement extends Application {
     }
 
     public static void setComponent(IShowUser view) {
-        component = DaggerIPresenterComponent.builder().viewModule(new ViewModule(view)).build();;
+        component = DaggerComponents_IPresenterComponent.builder().viewModule(new ViewModule(view)).build();;
     }
 
     @Override

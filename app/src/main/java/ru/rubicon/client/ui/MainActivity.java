@@ -1,7 +1,7 @@
-package ru.rubicon.client;
+package ru.rubicon.client.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import javax.inject.Inject;
 
-import ru.rubicon.client.di.IPresenterComponent;
+import ru.rubicon.client.Basement;
+import ru.rubicon.client.R;
+import ru.rubicon.client.di.Components.IPresenterComponent;
 import ru.rubicon.client.entities.User;
 import ru.rubicon.client.interfaces.IPresenter;
 import ru.rubicon.client.interfaces.IShowUser;
@@ -34,13 +36,14 @@ public class MainActivity extends AppCompatActivity implements IShowUser {
         Basement.setComponent(this);
         IPresenterComponent component = Basement.getComponent();
         component.inject(this);
-        //presenter = Basement.getComponent().getPresenter();
     }
 
     @Override
     public void show(User user) {
         tvText1.setText("Name : "+user.getName());
         tvText2.setText("Age : "+user.getAge());
+        Intent intent = new Intent(this, GithubActivity.class);
+        startActivity(intent);
     }
 
     private void initView(){

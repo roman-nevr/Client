@@ -5,5 +5,6 @@ package ru.rubicon.client.interfaces;
  */
 
 public interface IGithubPresenter {
-    public void getResponse(String string);
+    public void getUser(String userName);
+    public void getContributor(String contributor);
 }

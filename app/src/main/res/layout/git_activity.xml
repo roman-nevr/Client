@@ -11,7 +11,7 @@
         android:id="@+id/etUserName"/>
     <TextView
         android:text="TextView"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -19,8 +19,21 @@
 
     <Button
         android:layout_marginTop="20dp"
-        android:text="Button"
+        android:text="Get User"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnGit" />
+        android:id="@+id/btnGitGetUser" />
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="Get Contributor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnGitGetContributor" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:id="@+id/pbGit" />
 </LinearLayout>

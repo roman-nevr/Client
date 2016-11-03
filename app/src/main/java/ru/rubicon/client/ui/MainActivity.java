@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import ru.rubicon.client.Basement;
 import ru.rubicon.client.R;
 import ru.rubicon.client.di.Components.IPresenterComponent;
-import ru.rubicon.client.entities.User;
+import ru.rubicon.client.model.User;
 import ru.rubicon.client.interfaces.IPresenter;
 import ru.rubicon.client.interfaces.IShowUser;
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements IShowUser {
     }
 
     @Override
-    public void show(User user) {
+    public void showUser(User user) {
         tvText1.setText("Name : "+user.getName());
         tvText2.setText("Age : "+user.getAge());
         Intent intent = new Intent(this, GithubActivity.class);

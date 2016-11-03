@@ -8,29 +8,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.squareup.okhttp.ResponseBody;
-
-import java.io.IOException;
-
 import javax.inject.Inject;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 import ru.rubicon.client.R;
-import ru.rubicon.client.implementations.ServiceGenerator;
-import ru.rubicon.client.implementations.ServiceGenerator.GitAPI;
 import ru.rubicon.client.interfaces.IGithubPresenter;
-import ru.rubicon.client.model.GitModel;
 
 /**
  * Created by Витя on 31.10.2016.
  */
 
-public class GithubActivity extends AppCompatActivity {
+public class GithubActivity extends AppCompatActivity implements {
 
-    Button btnGit;
+    Button btnGitGetUser, btnGitGetContributor;
     TextView tvGit;
     EditText etUserName;
 
@@ -45,17 +34,23 @@ public class GithubActivity extends AppCompatActivity {
 
     private void initView() {
         setContentView(R.layout.git_activity);
-        btnGit = (Button) findViewById(R.id.btnGit);
+        btnGitGetUser = (Button) findViewById(R.id.btnGitGetUser);
+        btnGitGetContributor = (Button) findViewById(R.id.btnGitGetContributor);
         tvGit = (TextView) findViewById(R.id.tvGit);
         etUserName = (EditText) findViewById(R.id.etUserName);
+        btnGitGetUser.setOnClickListener(new ButtonGitOnClickListener());
+        btnGitGetContributor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        btnGit.setOnClickListener(new ButtonGitOnClickListener());
+            }
+        });
     }
 
     private class ButtonGitOnClickListener implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            presenter.getResponse(etUserName.getText().toString());
+            presenter.getUser(etUserName.getText().toString());
         }
 
     }

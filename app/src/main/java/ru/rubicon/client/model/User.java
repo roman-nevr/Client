@@ -1,4 +1,4 @@
-package ru.rubicon.client.entities;
+package ru.rubicon.client.model;
 
 /**
  * Created by Витя on 25.10.2016.

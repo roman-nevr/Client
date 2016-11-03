@@ -7,4 +7,6 @@ package ru.rubicon.client.interfaces;
 public interface IGithubView {
     public void setText(String string);
     public String getText();
+    public void showProgressBar();
+    public void hideProgressBar();
 }

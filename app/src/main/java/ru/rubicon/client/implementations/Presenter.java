@@ -2,8 +2,7 @@ package ru.rubicon.client.implementations;
 
 import javax.inject.Inject;
 
-import dagger.Module;
-import ru.rubicon.client.entities.User;
+import ru.rubicon.client.model.User;
 import ru.rubicon.client.interfaces.IPresenter;
 import ru.rubicon.client.interfaces.IShowUser;
 
@@ -21,6 +20,6 @@ public class Presenter implements IPresenter{
 
     @Override
     public void pressButtonNext() {
-        view.show(new User());
+        view.showUser(new User());
     }
 }

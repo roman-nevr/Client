@@ -6,6 +6,8 @@ package ru.rubicon.client.implementations;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -32,5 +34,23 @@ public class ServiceGenerator {
         Call<GitModel> user(
                 @Path("user") String user
         );
+
+    }
+
+    public class Contributor {
+        public final String user;
+        public final int contributions;
+
+        public Contributor(String user, int contributions) {
+            this.user = user;
+            this.contributions = contributions;
+        }
+    }
+
+    public interface GitHub {
+        @GET("/repos/{owner}/{repo}/contributors")
+        Call<List<Contributor>> contributors(
+                @Path("owner") String owner,
+                @Path("repo") String repo);
     }
 }

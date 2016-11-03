@@ -28,12 +28,11 @@ public class GithubPresenterImpl implements IGithubPresenter{
     }
 
     @Override
-    public void getResponse(String string) {
+    public void getUser(String userName) {
         ServiceGenerator.GitAPI gitClient = ServiceGenerator.createService(ServiceGenerator.GitAPI.class);
 
-        String user = string;
         // асинхронный режим
-        Call<GitModel> call = gitClient.user(user);
+        Call<GitModel> call = gitClient.user(userName);
         call.enqueue(new Callback<GitModel>() {
             @Override
             public void onResponse(Response response, Retrofit retrofit) {
@@ -67,6 +66,11 @@ public class GithubPresenterImpl implements IGithubPresenter{
                 view.setText("Error occured while quering");
             }
         });
+    }
+
+    @Override
+    public void getContributor(String contributor) {
+
     }
 }
 

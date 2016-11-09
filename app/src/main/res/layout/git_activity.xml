@@ -1,39 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="roman-nevr"
-        android:textSize="30dp"
-        android:id="@+id/etUserName"/>
-    <TextView
-        android:text="TextView"
-        android:textSize="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/tvGit" />
-
     <Button
-        android:layout_marginTop="20dp"
-        android:text="Get User"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnGitGetUser" />
-    <Button
-        android:layout_marginTop="20dp"
         android:text="Get Contributor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnGitGetContributor" />
+        android:id="@+id/btnGitGetContributor"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Get User"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnGitGetUser"
+        android:layout_above="@+id/btnGitGetContributor"
+        android:layout_alignParentStart="true" />
 
     <ProgressBar
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:id="@+id/pbGit" />
-</LinearLayout>
+        android:id="@+id/pbGit"
+        android:layout_marginTop="128dp"
+        android:layout_below="@+id/etUserName"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="client"
+        android:textSize="30dp"
+        android:id="@+id/etGitRepo"
+        android:layout_below="@+id/etUserName"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text=""
+        android:textSize="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvGit"
+        android:layout_below="@+id/etGitRepo"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="roman-nevr"
+        android:textSize="30dp"
+        android:id="@+id/etUserName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

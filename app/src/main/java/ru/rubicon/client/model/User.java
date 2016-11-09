@@ -1,5 +1,7 @@
 package ru.rubicon.client.model;
 
+import java.util.Random;
+
 /**
  * Created by Витя on 25.10.2016.
  */
@@ -7,9 +9,10 @@ package ru.rubicon.client.model;
 public class User {
     private String name;
     private int age;
+    private static Random random = new Random();
 
     public User(){
-        this.age = 8;
+        this.age = random.nextInt(100);
         this.name = "Timur";
     }
 

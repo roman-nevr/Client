@@ -2,25 +2,30 @@ package ru.rubicon.client.di;
 
 import dagger.Module;
 import dagger.Provides;
-import ru.rubicon.client.implementations.GithubPresenterImpl;
-import ru.rubicon.client.interfaces.IGithubPresenter;
-import ru.rubicon.client.interfaces.IGithubView;
+import ru.rubicon.client.implementations.GitHubPresenterImpl;
+import ru.rubicon.client.interfaces.IGitHubView;
+import ru.rubicon.client.interfaces.IGitHubPresenter;
 
 /**
  * Created by Витя on 02.11.2016.
  */
 
 @Module
-public class GithubPresenterModule {
+public class GitHubPresenterModule {
 
-    private IGithubView view;
+    private IGitHubView view;
 
-    public GithubPresenterModule(IGithubView view){
+    public GitHubPresenterModule(IGitHubView view){
         this.view = view;
     }
 
     @Provides
-    IGithubPresenter provideIGithubPresenter(){
-        return new GithubPresenterImpl(view);
+    IGitHubView provideIGitHubView(){
+        return view;
+    }
+
+    @Provides
+    IGitHubPresenter provideIGitHubPresenter(){
+        return new GitHubPresenterImpl(view);
     }
 }

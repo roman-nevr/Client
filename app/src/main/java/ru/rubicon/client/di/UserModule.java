@@ -1,5 +1,7 @@
 package ru.rubicon.client.di;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import ru.rubicon.client.di.scope.UserScope;
@@ -18,7 +20,7 @@ public class UserModule {
         return new User();
     }
 
-    @UserScope
+    @Singleton
     @Provides
     Age provideAge(){
         return new Age();

@@ -12,6 +12,7 @@ import ru.rubicon.client.Basement;
 import ru.rubicon.client.R;
 import ru.rubicon.client.di.Components;
 import ru.rubicon.client.di.Components.IPresenterComponent;
+import ru.rubicon.client.di.UserModule;
 import ru.rubicon.client.model.Age;
 import ru.rubicon.client.model.User;
 import ru.rubicon.client.interfaces.IPresenter;
@@ -29,10 +30,8 @@ public class MainActivity extends AppCompatActivity implements IShowUser {
     @Inject
     IPresenter presenter;
 
-    /*@Inject
     User user;
-    @Inject
-    Age age;*/
+    Age age;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,9 @@ public class MainActivity extends AppCompatActivity implements IShowUser {
 
     @Override
     public void showUser(User user) {
+        age = Basement.getComponent().newComponent(new UserModule()).plusAge();
         tvText1.setText("Name : "+user.getName());
-        tvText2.setText("Age : "+user.getAge());
+        tvText2.setText("Age : "+age.getAge());
     }
 
     private void initView(){

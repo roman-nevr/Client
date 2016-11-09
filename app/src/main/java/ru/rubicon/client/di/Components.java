@@ -30,8 +30,8 @@ public class Components {
     @UserScope
     @Subcomponent(modules = UserModule.class)
     public interface IUserComponent {
-        /*User plusUser();
-        Age plusAge();*/
+        User plusUser();
+        Age plusAge();
 
         void inject(MainActivity activity);
     }

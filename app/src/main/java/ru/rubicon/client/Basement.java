@@ -8,6 +8,7 @@ import ru.rubicon.client.di.Components.IGitHubComponent;
 import ru.rubicon.client.di.DaggerComponents_IGitHubComponent;
 import ru.rubicon.client.di.DaggerComponents_IPresenterComponent;
 import ru.rubicon.client.di.GitHubPresenterModule;
+import ru.rubicon.client.di.UserModule;
 import ru.rubicon.client.di.ViewModule;
 import ru.rubicon.client.interfaces.IGitHubPresenter;
 import ru.rubicon.client.interfaces.IGitHubView;
@@ -37,7 +38,8 @@ public class Basement extends Application {
     }
 
     public static void setPresenterComponent(IShowUser view) {
-        component = DaggerComponents_IPresenterComponent.builder().viewModule(new ViewModule(view)).build();;
+        component = DaggerComponents_IPresenterComponent.builder().viewModule(new ViewModule(view)).build();
+        component.newComponent(new UserModule());
     }
 
     public static void setGitHubComponent(IGitHubView gitHubView){

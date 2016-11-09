@@ -10,9 +10,8 @@ import javax.inject.Inject;
 
 import ru.rubicon.client.Basement;
 import ru.rubicon.client.R;
-import ru.rubicon.client.di.Components;
+import ru.rubicon.client.di.AgeModule;
 import ru.rubicon.client.di.Components.IPresenterComponent;
-import ru.rubicon.client.di.UserModule;
 import ru.rubicon.client.model.Age;
 import ru.rubicon.client.model.User;
 import ru.rubicon.client.interfaces.IPresenter;
@@ -45,9 +44,8 @@ public class MainActivity extends AppCompatActivity implements IShowUser {
 
     @Override
     public void showUser(User user) {
-        age = Basement.getComponent().newComponent(new UserModule()).plusAge();
         tvText1.setText("Name : "+user.getName());
-        tvText2.setText("Age : "+age.getAge());
+        tvText2.setText("Age : "+user.getAge());
     }
 
     private void initView(){

@@ -2,10 +2,13 @@ package ru.rubicon.client.model;
 
 import java.util.Random;
 
+import javax.inject.Singleton;
+
 /**
  * Created by Витя on 09.11.2016.
  */
 
+@Singleton
 public class Age {
     private static Random random = new Random();
     private int age;

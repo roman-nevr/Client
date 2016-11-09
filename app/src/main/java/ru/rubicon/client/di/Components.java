@@ -1,12 +1,10 @@
 package ru.rubicon.client.di;
 
-import android.app.Activity;
+import javax.inject.Singleton;
 
 import dagger.Component;
 import dagger.Subcomponent;
-import ru.rubicon.client.di.scope.UserScope;
 import ru.rubicon.client.interfaces.IGitHubPresenter;
-import ru.rubicon.client.interfaces.IGitHubView;
 import ru.rubicon.client.model.Age;
 import ru.rubicon.client.model.User;
 import ru.rubicon.client.ui.GitHubActivity;
@@ -24,16 +22,12 @@ public class Components {
         void inject(MainActivity mainActivity);
 
         IPresenter plusPresenter();
-        IUserComponent newComponent(UserModule module);
     }
 
-    @UserScope
-    @Subcomponent(modules = UserModule.class)
+    @Singleton
+    @Component(modules = AgeModule.class)
     public interface IUserComponent {
-        User plusUser();
-        Age plusAge();
-
-        void inject(MainActivity activity);
+        void inject(User user);
     }
 
     @Component(modules = {GitHubPresenterModule.class})

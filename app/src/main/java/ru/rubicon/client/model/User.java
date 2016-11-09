@@ -2,23 +2,38 @@ package ru.rubicon.client.model;
 
 import java.util.Random;
 
+import javax.inject.Inject;
+
+import ru.rubicon.client.Basement;
+import ru.rubicon.client.di.AgeModule;
+import ru.rubicon.client.di.DaggerComponents_IUserComponent;
+import ru.rubicon.client.di.scope.UserScope;
+
 /**
  * Created by Витя on 25.10.2016.
  */
 
+@UserScope
 public class User {
     private String name;
-    private int age;
+
     private static Random random = new Random();
+    @Inject
+    Age age;
 
     public User(){
-        this.age = random.nextInt(100);
         this.name = "Timur";
+        init();
     }
 
     public User(String name, int age) {
         this.name = name;
-        this.age = age;
+        init();
+    }
+
+    private void init(){
+        Basement.setUserComponent(DaggerComponents_IUserComponent.builder().ageModule(new AgeModule()).build());
+        Basement.getUserComponent().inject(this);
     }
 
     public String getName() {
@@ -30,10 +45,10 @@ public class User {
     }
 
     public int getAge() {
-        return age;
+        return age.getAge();
     }
 
     public void setAge(int age) {
-        this.age = age;
+        this.age.setAge(age);
     }
 }

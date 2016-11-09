@@ -12,13 +12,7 @@ import ru.rubicon.client.model.User;
  * Created by Витя on 09.11.2016.
  */
 @Module
-public class UserModule {
-
-    @UserScope
-    @Provides
-    User provideUser(){
-        return new User();
-    }
+public class AgeModule {
 
     @Singleton
     @Provides

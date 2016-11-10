@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements IShowUser {
     @Override
     public void showUser(User user) {
         tvText1.setText("Name : "+user.getName());
-        tvText2.setText("Age : "+user.getAge());
+        tvText2.setText("Age : "+user.getAge()+" \nid: "+user.getAgeId());
     }
 
     private void initView(){

@@ -32,7 +32,6 @@ public class User {
     }
 
     private void init(){
-        Basement.setUserComponent(DaggerComponents_IUserComponent.builder().ageModule(new AgeModule()).build());
         Basement.getUserComponent().inject(this);
     }
 
@@ -50,5 +49,9 @@ public class User {
 
     public void setAge(int age) {
         this.age.setAge(age);
+    }
+
+    public String getAgeId(){
+        return this.toString()+age.toString();
     }
 }

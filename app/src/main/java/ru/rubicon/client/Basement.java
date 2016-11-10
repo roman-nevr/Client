@@ -7,6 +7,7 @@ import ru.rubicon.client.di.Components.IPresenterComponent;
 import ru.rubicon.client.di.Components.IGitHubComponent;
 import ru.rubicon.client.di.DaggerComponents_IGitHubComponent;
 import ru.rubicon.client.di.DaggerComponents_IPresenterComponent;
+import ru.rubicon.client.di.DaggerComponents_IUserComponent;
 import ru.rubicon.client.di.GitHubPresenterModule;
 import ru.rubicon.client.di.AgeModule;
 import ru.rubicon.client.di.ViewModule;
@@ -53,14 +54,11 @@ public class Basement extends Application {
         return userComponent;
     }
 
-    public static void setUserComponent(Components.IUserComponent userComponent) {
-        Basement.userComponent = userComponent;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         setData(100500);
-
+        userComponent = DaggerComponents_IUserComponent.builder().ageModule(new AgeModule()).build();
     }
 }

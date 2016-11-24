@@ -7,7 +7,7 @@ package ru.rubicon.client.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GitModel {
+public class GitUser {
     @Expose
     private String login;
     @Expose

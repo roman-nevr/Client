@@ -1,6 +1,6 @@
 package ru.rubicon.client.implementations;
 
-import android.view.View;
+import android.util.Log;
 
 import com.squareup.okhttp.ResponseBody;
 
@@ -16,7 +16,8 @@ import retrofit.Response;
 import retrofit.Retrofit;
 import ru.rubicon.client.interfaces.IGitHubPresenter;
 import ru.rubicon.client.interfaces.IGitHubView;
-import ru.rubicon.client.model.GitModel;
+import ru.rubicon.client.model.GitUser;
+import ru.rubicon.client.model.User;
 
 /**
  * Created by Витя on 02.11.2016.
@@ -36,14 +37,14 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
         ServiceGenerator.GitAPI gitClient = ServiceGenerator.createService(ServiceGenerator.GitAPI.class);
 
         // асинхронный режим
-        Call<GitModel> call = gitClient.user(userName);
+        Call<GitUser> call = gitClient.user(userName);
         view.showProgressBar();
-        call.enqueue(new Callback<GitModel>() {
+        call.enqueue(new Callback<GitUser>() {
             @Override
             public void onResponse(Response response, Retrofit retrofit) {
                 // response.isSuccess() is true if the response code is 2xx
                 if (response.isSuccess()) {
-                    GitModel user = (GitModel) response.body();
+                    GitUser user = (GitUser) response.body();
                     view.hideProgressBar();
                     // Получаем json из github-сервера и конвертируем его в удобный вид
                     view.setText("Аккаунт Github: " + user.getName() +
@@ -81,7 +82,7 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // Create an instance of our GitHub API interface.
-        ServiceGenerator.GitHub github = retrofit.create(ServiceGenerator.GitHub.class);
+        ServiceGenerator.GitAPI github = retrofit.create(ServiceGenerator.GitAPI.class);
 
         // Create a call instance for looking up Retrofit contributors.
         Call<List<ServiceGenerator.Contributor>> call = github.contributors(owner, repo);
@@ -118,6 +119,26 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
                 view.setText("Error occured while quering");
             }
         });
+    }
+
+    ServiceGenerator.GitAPI loginService =
+            ServiceGenerator.createService(ServiceGenerator.GitAPI.class, "user", "secretpassword");
+    Call<GitUser> call = loginService.basicLogin();
+    call.enqueue(new Callback<User>() {
+        @Override
+        public void onResponse(Call<User> call, Response<User> response) {
+            if (response.isSuccessful()) {
+                // user object available
+            } else {
+                // error response, no access to resource?
+            }
+        }
+
+        @Override
+        public void onFailure(Call<User> call, Throwable t) {
+            // something went completely south (like no internet connection)
+            Log.d("Error", t.getMessage());
+        }
     }
 }
 

@@ -3,31 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:text="Get Contributor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnGitGetContributor"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Get User"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnGitGetUser"
-        android:layout_above="@+id/btnGitGetContributor"
-        android:layout_alignParentStart="true" />
-
     <TextView
         android:text=""
         android:textSize="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvGit"
-        android:layout_below="@+id/etGitRepo"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/btnGitGetUser" />
+        android:layout_above="@+id/btnGitGetUser"
+        android:layout_below="@+id/etPassword" />
 
     <EditText
         android:layout_width="150dp"
@@ -38,16 +22,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:id="@+id/pbGit"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/tvGit"
-        android:layout_alignParentStart="true" />
-
     <EditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -56,4 +30,49 @@
         android:id="@+id/etGitRepo"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:id="@+id/pbGit"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Get User"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnGitGetUser"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Get Contributor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnGitGetContributor"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/btnGitGetUser" />
+
+    <Button
+        android:text="Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/btnGitGetContributor"
+        android:id="@+id/btnLogin" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:text="zaq12wsx"
+        android:ems="10"
+        android:layout_below="@+id/etUserName"
+        android:layout_alignParentStart="true"
+        android:id="@+id/etPassword"
+        android:layout_toStartOf="@+id/etGitRepo"
+        android:layout_alignEnd="@+id/etUserName" />
 </RelativeLayout>

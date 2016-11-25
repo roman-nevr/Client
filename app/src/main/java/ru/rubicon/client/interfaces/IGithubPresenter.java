@@ -5,6 +5,7 @@ package ru.rubicon.client.interfaces;
  */
 
 public interface IGitHubPresenter {
-    public void requestUser(String user);
-    public void requestContributors(String owner, String repo);
+    void requestUser(String user);
+    void requestContributors(String owner, String repo);
+    void loginRequest(String login, String password);
 }

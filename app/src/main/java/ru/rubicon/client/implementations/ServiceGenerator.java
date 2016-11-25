@@ -71,7 +71,7 @@ public class ServiceGenerator {
         Call<List<Contributor>> contributors(
                 @Path("owner") String owner,
                 @Path("repo") String repo);
-        @POST("/login")
+        @POST("/user")
         Call<GitUser> basicLogin();
 
 

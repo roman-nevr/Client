@@ -25,9 +25,9 @@ import ru.rubicon.client.interfaces.IGitHubView;
 
 public class GitHubActivity extends AppCompatActivity implements IGitHubView {
 
-    private Button btnGitGetUser, btnGitGetContributor;
+    private Button btnGitGetUser, btnGitGetContributor, btnLogin;
     private TextView tvGit;
-    private EditText etUserName, etGitRepo;
+    private EditText etUserName, etGitRepo, etPassword;
     private ProgressBar pbGit;
 
     @Inject
@@ -46,9 +46,11 @@ public class GitHubActivity extends AppCompatActivity implements IGitHubView {
         setContentView(R.layout.git_activity);
         btnGitGetUser = (Button) findViewById(R.id.btnGitGetUser);
         btnGitGetContributor = (Button) findViewById(R.id.btnGitGetContributor);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
         tvGit = (TextView) findViewById(R.id.tvGit);
         etUserName = (EditText) findViewById(R.id.etUserName);
         etGitRepo = (EditText) findViewById(R.id.etGitRepo);
+        etPassword = (EditText) findViewById(R.id.etPassword);
         pbGit = (ProgressBar) findViewById(R.id.pbGit);
 
         btnGitGetUser.setOnClickListener(new ButtonGitOnClickListener());
@@ -56,6 +58,12 @@ public class GitHubActivity extends AppCompatActivity implements IGitHubView {
             @Override
             public void onClick(View view) {
                 presenter.requestContributors(getOwnerName(), getRepoName());
+            }
+        });
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.loginRequest(getOwnerName(), getPassword());
             }
         });
     }
@@ -76,6 +84,12 @@ public class GitHubActivity extends AppCompatActivity implements IGitHubView {
     public String getOwnerName() {
         return etUserName.getText().toString();
     }
+
+    @Override
+    public String getPassword() {
+        return etPassword.getText().toString();
+    }
+
 
     @Override
     public String getRepoName() {

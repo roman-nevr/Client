@@ -17,7 +17,6 @@ import retrofit.Retrofit;
 import ru.rubicon.client.interfaces.IGitHubPresenter;
 import ru.rubicon.client.interfaces.IGitHubView;
 import ru.rubicon.client.model.GitUser;
-import ru.rubicon.client.model.User;
 
 /**
  * Created by Витя on 02.11.2016.
@@ -121,24 +120,34 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
         });
     }
 
-    ServiceGenerator.GitAPI loginService =
-            ServiceGenerator.createService(ServiceGenerator.GitAPI.class, "user", "secretpassword");
-    Call<GitUser> call = loginService.basicLogin();
-    call.enqueue(new Callback<User>() {
-        @Override
-        public void onResponse(Call<User> call, Response<User> response) {
-            if (response.isSuccessful()) {
-                // user object available
-            } else {
-                // error response, no access to resource?
+    @Override
+    public void loginRequest(String login, String password) {
+        ServiceGenerator.GitAPI loginService =
+                ServiceGenerator.createService(ServiceGenerator.GitAPI.class, login, password);
+        Call<GitUser> call = loginService.basicLogin();
+        call.enqueue(new Callback<GitUser>() {
+            @Override
+            public void onResponse(Response<GitUser> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    GitUser user = response.body();
+                    view.setText(user.toString());
+                    // user object available
+                } else {
+                    try {
+                        view.setText("fail " + response.errorBody().string());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    // error response, no access to resource?
+                }
             }
-        }
 
-        @Override
-        public void onFailure(Call<User> call, Throwable t) {
-            // something went completely south (like no internet connection)
-            Log.d("Error", t.getMessage());
-        }
+            @Override
+            public void onFailure(Throwable t) {
+                // something went completely south (like no internet connection)
+                Log.d("Error", t.getMessage());
+            }
+        });
     }
 }
 

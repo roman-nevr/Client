@@ -5,9 +5,10 @@ package ru.rubicon.client.interfaces;
  */
 
 public interface IGitHubView {
-    public void setText(String string);
-    public String getOwnerName();
-    public String getRepoName();
-    public void showProgressBar();
-    public void hideProgressBar();
+    void setText(String string);
+    String getOwnerName();
+    String getPassword();
+    String getRepoName();
+    void showProgressBar();
+    void hideProgressBar();
 }

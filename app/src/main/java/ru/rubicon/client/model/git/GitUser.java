@@ -1,4 +1,4 @@
-package ru.rubicon.client.model;
+package ru.rubicon.client.model.git;
 
 /**
  * Created by Витя on 01.11.2016.
@@ -85,6 +85,12 @@ public class GitUser {
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("primary")
+    @Expose
+    private boolean primary;
+    @SerializedName("verified")
+    @Expose
+    private boolean verified;
 
     public String getLogin() {
         return login;
@@ -215,6 +221,22 @@ public class GitUser {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isPrimary() {
+        return primary;
+    }
+
+    public void setPrimary(boolean primary) {
+        this.primary = primary;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
     }
 
     public void setName(String name) {

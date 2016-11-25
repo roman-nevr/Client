@@ -25,7 +25,7 @@ import ru.rubicon.client.interfaces.IGitHubView;
 
 public class GitHubActivity extends AppCompatActivity implements IGitHubView {
 
-    private Button btnGitGetUser, btnGitGetContributor, btnLogin;
+    private Button btnGitGetUser, btnGitGetContributor, btnLogin, btnNewGist;
     private TextView tvGit;
     private EditText etUserName, etGitRepo, etPassword;
     private ProgressBar pbGit;
@@ -46,6 +46,7 @@ public class GitHubActivity extends AppCompatActivity implements IGitHubView {
         setContentView(R.layout.git_activity);
         btnGitGetUser = (Button) findViewById(R.id.btnGitGetUser);
         btnGitGetContributor = (Button) findViewById(R.id.btnGitGetContributor);
+        btnNewGist = (Button) findViewById(R.id.btnGist);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvGit = (TextView) findViewById(R.id.tvGit);
         etUserName = (EditText) findViewById(R.id.etUserName);
@@ -63,7 +64,13 @@ public class GitHubActivity extends AppCompatActivity implements IGitHubView {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.loginRequest(getOwnerName(), getPassword());
+                presenter.emailRequest(getOwnerName(), getPassword());
+            }
+        });
+        btnNewGist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.checkEvents();
             }
         });
     }

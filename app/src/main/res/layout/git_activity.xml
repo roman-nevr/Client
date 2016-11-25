@@ -75,4 +75,12 @@
         android:id="@+id/etPassword"
         android:layout_toStartOf="@+id/etGitRepo"
         android:layout_alignEnd="@+id/etUserName" />
+
+    <Button
+        android:text="Gist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnGitGetUser"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btnGist" />
 </RelativeLayout>

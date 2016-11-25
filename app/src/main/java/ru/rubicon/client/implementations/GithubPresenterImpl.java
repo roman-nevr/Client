@@ -1,22 +1,25 @@
 package ru.rubicon.client.implementations;
 
-import android.util.Log;
 
-import com.squareup.okhttp.ResponseBody;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.converter.gson.GsonConverterFactory;
 import ru.rubicon.client.interfaces.IGitHubPresenter;
 import ru.rubicon.client.interfaces.IGitHubView;
-import ru.rubicon.client.model.GitUser;
+import ru.rubicon.client.model.git.File;
+import ru.rubicon.client.model.git.Files;
+import ru.rubicon.client.model.git.Gist;
+import ru.rubicon.client.model.git.GitUser;
 
 /**
  * Created by Витя on 02.11.2016.
@@ -40,6 +43,17 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
         view.showProgressBar();
         call.enqueue(new Callback<GitUser>() {
             @Override
+            public void onResponse(Call<GitUser> call, Response<GitUser> response) {
+                view.setText(call.toString()+ "\n" + response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<GitUser> call, Throwable t) {
+
+            }
+
+
+            /*@Override
             public void onResponse(Response response, Retrofit retrofit) {
                 // response.isSuccess() is true if the response code is 2xx
                 if (response.isSuccess()) {
@@ -69,24 +83,36 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
                 view.hideProgressBar();
                 // handle execution failures like no internet connectivity
                 view.setText("Error occured while quering");
-            }
+            }*/
         });
     }
 
     @Override
     public void requestContributors(String owner, String repo) {
         view.showProgressBar();
-        Retrofit retrofit = new Retrofit.Builder()
+        /*Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ServiceGenerator.API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build();
+                .build();*/
         // Create an instance of our GitHub API interface.
-        ServiceGenerator.GitAPI github = retrofit.create(ServiceGenerator.GitAPI.class);
+        ServiceGenerator.GitAPI github = ServiceGenerator.createService(ServiceGenerator.GitAPI.class);
 
         // Create a call instance for looking up Retrofit contributors.
         Call<List<ServiceGenerator.Contributor>> call = github.contributors(owner, repo);
         call.enqueue(new Callback<List<ServiceGenerator.Contributor>>() {
             @Override
+            public void onResponse(Call<List<ServiceGenerator.Contributor>> call, Response<List<ServiceGenerator.Contributor>> response) {
+                view.setText(call.toString()+ "\n" + response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<List<ServiceGenerator.Contributor>> call, Throwable t) {
+
+            }
+
+
+
+            /*@Override
             public void onResponse(Response<List<ServiceGenerator.Contributor>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     view.hideProgressBar();
@@ -116,7 +142,7 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
                 view.hideProgressBar();
                 // handle execution failures like no internet connectivity
                 view.setText("Error occured while quering");
-            }
+            }*/
         });
     }
 
@@ -127,27 +153,73 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
         Call<GitUser> call = loginService.basicLogin();
         call.enqueue(new Callback<GitUser>() {
             @Override
-            public void onResponse(Response<GitUser> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    GitUser user = response.body();
-                    view.setText(user.toString());
-                    // user object available
-                } else {
+            public void onResponse(Call<GitUser> call, Response<GitUser> response) {
+                if(response.body() != null){
+                    view.setText(response.body().getName());
+                }else {
+                    //view.setText(call.toString()+ "\n" + response.toString());
                     try {
-                        view.setText("fail " + response.errorBody().string());
-                    }catch (Exception e){
+                        view.setText(response.errorBody().string());
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    // error response, no access to resource?
                 }
             }
 
             @Override
-            public void onFailure(Throwable t) {
-                // something went completely south (like no internet connection)
-                Log.d("Error", t.getMessage());
+            public void onFailure(Call<GitUser> call, Throwable t) {
+
             }
         });
     }
+
+    @Override
+    public void emailRequest(String login, String password) {
+        ServiceGenerator.GitAPI loginService =
+                ServiceGenerator.createService(ServiceGenerator.GitAPI.class, login, password);
+        Call<List<GitUser>> call = loginService.getEmails();
+        call.enqueue(new Callback<List<GitUser>>() {
+            @Override
+            public void onResponse(Call<List<GitUser>> call, Response<List<GitUser>> response) {
+                if(response.body() != null){
+                    view.setText(response.body().get(0).getEmail());
+                }else {
+                    //view.setText(call.toString()+ "\n" + response.toString());
+                    try {
+                        view.setText(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GitUser>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    @Override
+    public void checkEvents() {
+
+        Gson gson = new  GsonBuilder().setPrettyPrinting().create();
+        Gist gist = new Gist();
+        gist.setDescription("32423");
+        String json = gson.toJson(gist);
+
+        List<File> files = new ArrayList<>();
+        files.add(new File("first", "plain", null, "", 2));
+        //files.add(new File("first1", "plain", null, "", 3));
+
+        json = gson.toJson(new Files(files));
+
+
+        view.setText(json);
+
+    }
+
+
+
 }
 

@@ -12,12 +12,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/btnAdd"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/guideline2"
-        android:layout_marginEnd="4dp" />
+        android:layout_marginBottom="8dp" />
 
     <EditText
         android:layout_width="0dp"
@@ -33,14 +33,12 @@
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:text="TextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:id="@+id/recyclerView"
         android:layout_marginTop="8dp"
-        android:maxLines = "999"
-        android:scrollbars = "vertical"
         app:layout_constraintTop_toBottomOf="@+id/etName"
         android:layout_marginStart="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -67,26 +65,5 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
-
-    <android.support.constraint.Guideline
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/guideline2"
-        app:layout_constraintGuide_percent="0.5"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="180dp" />
-
-    <Button
-        android:text="Button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp" />
 
 </android.support.constraint.ConstraintLayout>

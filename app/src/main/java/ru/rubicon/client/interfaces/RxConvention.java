@@ -1,5 +1,6 @@
 package ru.rubicon.client.interfaces;
 
+import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -19,5 +20,6 @@ public interface RxConvention {
     }
     interface IRxActivityPresenter{
         void onButtonAddClick();
+        void onStop();
     }
 }

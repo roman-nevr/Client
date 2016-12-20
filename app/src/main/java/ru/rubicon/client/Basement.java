@@ -2,6 +2,9 @@ package ru.rubicon.client;
 
 import android.app.Application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.rubicon.client.di.Components;
 import ru.rubicon.client.di.Components.IPresenterComponent;
 import ru.rubicon.client.di.Components.IGitHubComponent;
@@ -13,6 +16,7 @@ import ru.rubicon.client.di.AgeModule;
 import ru.rubicon.client.di.ViewModule;
 import ru.rubicon.client.interfaces.IGitHubView;
 import ru.rubicon.client.interfaces.IShowUser;
+import ru.rubicon.client.model.StringProfileRepository;
 
 
 /**
@@ -25,6 +29,8 @@ public class Basement extends Application {
     private static IPresenterComponent component;
     private static IGitHubComponent gitHubComponent;
     private static Components.IUserComponent userComponent;
+    public static StringProfileRepository stringProfileRepository = new StringProfileRepository();
+    public static List<String> log = new ArrayList<>();
 
     public float getData() {
         return data;
@@ -39,11 +45,13 @@ public class Basement extends Application {
     }
 
     public static void setPresenterComponent(IShowUser view) {
-        component = DaggerComponents_IPresenterComponent.builder().viewModule(new ViewModule(view)).build();
+        component = DaggerComponents_IPresenterComponent.builder().viewModule(
+                new ViewModule(view)).build();
     }
 
     public static void setGitHubComponent(IGitHubView gitHubView){
-        gitHubComponent = DaggerComponents_IGitHubComponent.builder().gitHubPresenterModule(new GitHubPresenterModule(gitHubView)).build();
+        gitHubComponent = DaggerComponents_IGitHubComponent.builder().gitHubPresenterModule(
+                new GitHubPresenterModule(gitHubView)).build();
     }
 
     public static IGitHubComponent getGitHubComponent(){

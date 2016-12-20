@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import ru.rubicon.client.R;
 import ru.rubicon.client.interfaces.RxConvention;
 import ru.rubicon.client.ui.presenters.RxActivityPresenterImpl;
@@ -20,7 +21,7 @@ import ru.rubicon.client.ui.presenters.RxActivityPresenterImpl;
 
 public class RxActivity extends AppCompatActivity implements RxConvention.IRxActivityView {
 
-    @Bind(R.id.tvText)TextView tvText;
+    @Bind(R.id.recyclerView)TextView tvText;
     @Bind(R.id.btnAdd)Button btnAdd;
     @Bind(R.id.etName)EditText etName;
     @Bind(R.id.rlShadowRx)RelativeLayout rlShadow;
@@ -31,7 +32,15 @@ public class RxActivity extends AppCompatActivity implements RxConvention.IRxAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rx_activity_layout);
+        ButterKnife.bind(this);
         presenter = new RxActivityPresenterImpl(this);
+    }
+
+    private void bindViews() {
+        tvText = (TextView) findViewById(R.id.recyclerView);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        etName = (EditText) findViewById(R.id.etName);
+        rlShadow = (RelativeLayout) findViewById(R.id.rlShadowRx);
     }
 
     @Override
@@ -67,5 +76,11 @@ public class RxActivity extends AppCompatActivity implements RxConvention.IRxAct
     @Override
     public EditText getEditText() {
         return etName;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onStop();
     }
 }

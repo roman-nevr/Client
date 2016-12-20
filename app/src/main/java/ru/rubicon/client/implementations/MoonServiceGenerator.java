@@ -1,12 +1,7 @@
 package ru.rubicon.client.implementations;
 
-/**
- * Created by Витя on 01.11.2016.
- */
-
 import android.util.Base64;
 import android.util.Log;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +14,6 @@ import okhttp3.Response;
 import okhttp3.Route;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
@@ -29,14 +23,17 @@ import retrofit2.http.Path;
 import ru.rubicon.client.model.git.Gist;
 import ru.rubicon.client.model.git.GitUser;
 
-public class ServiceGenerator {
-    public static final String API_BASE_URL = "https://api.github.com/";
+/**
+ * Created by Admin on 14.12.2016.
+ */
+
+public class MoonServiceGenerator {
+    public static final String API_BASE_URL = "http://moon/Test/";
     private static OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
-                    .baseUrl(API_BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create());
+                    .baseUrl(API_BASE_URL);
 
     public static <S> S createService(Class<S> serviceClass) {
         Retrofit retrofit = builder.client(httpClientBuilder.build()).build();
@@ -56,8 +53,6 @@ public class ServiceGenerator {
             String credentials = username + ":" + password;
             final String basic =
                     "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-
-
         }
         OkHttpClient httpClient = httpClientBuilder.authenticator(new Authenticator() {
             @Override
@@ -72,34 +67,11 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
-
-
-    public interface GitAPI {
+    public interface MoonApi {
         @GET("/users/{user}")
-        Call<GitUser> user(
+        Call goods(
                 @Path("user") String user
         );
-        @GET("/repos/{owner}/{repo}/contributors")
-        Call<List<Contributor>> contributors(
-                @Path("owner") String owner,
-                @Path("repo") String repo);
-        @GET("/user")
-        Call<GitUser> basicLogin();
-        @GET("/user/emails")
-        Call<List<GitUser>> getEmails();
-        @POST ("/gists")
-        Call<Gist>createGist(@Body Gist gist);
 
     }
-
-    public class Contributor {
-        public final String login;
-        public final int contributions;
-
-        public Contributor(String login, int contributions) {
-            this.login = login;
-            this.contributions = contributions;
-        }
-    }
-
 }

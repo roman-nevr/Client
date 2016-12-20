@@ -88,6 +88,11 @@ public class GitHubActivity extends AppCompatActivity implements IGitHubView {
     }
 
     @Override
+    public void addText(String string) {
+        tvGit.setText(tvGit.getText() + "\n" + string);
+    }
+
+    @Override
     public String getOwnerName() {
         return etUserName.getText().toString();
     }
@@ -118,4 +123,9 @@ public class GitHubActivity extends AppCompatActivity implements IGitHubView {
         context.startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onStop();
+    }
 }

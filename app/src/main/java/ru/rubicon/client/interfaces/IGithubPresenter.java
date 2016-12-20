@@ -10,4 +10,5 @@ public interface IGitHubPresenter {
     void loginRequest(String login, String password);
     void emailRequest(String login, String password);
     void checkEvents();
+    void onStop();
 }

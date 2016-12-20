@@ -9,17 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.security.auth.Subject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ru.rubicon.client.implementations.observables.Observables;
 import ru.rubicon.client.interfaces.IGitHubPresenter;
 import ru.rubicon.client.interfaces.IGitHubView;
+import ru.rubicon.client.model.StringProfile;
 import ru.rubicon.client.model.git.File;
 import ru.rubicon.client.model.git.Files;
 import ru.rubicon.client.model.git.Gist;
 import ru.rubicon.client.model.git.GitUser;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.subjects.PublishSubject;
 
 /**
  * Created by Витя on 02.11.2016.
@@ -28,10 +36,17 @@ import ru.rubicon.client.model.git.GitUser;
 public class GitHubPresenterImpl implements IGitHubPresenter {
 
     private final IGitHubView view;
+    private Subscription subscription, subscription2;
+    private PublishSubject<StringProfile> subject;
 
     @Inject
     public GitHubPresenterImpl(IGitHubView view) {
         this.view = view;
+        /*subject = PublishSubject.create();
+        subscription = Observables.stringProfileObservable.
+                observeOn(AndroidSchedulers.mainThread()).subscribe(subject);
+        subject.subscribe(new MySubscriber());
+        subject.subscribe(new MySubscriber());*/
     }
 
     @Override
@@ -219,7 +234,26 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
 
     }
 
+    @Override
+    public void onStop() {
+        //subscription.unsubscribe();
+    }
 
+    class MySubscriber extends Subscriber<StringProfile>{
+        @Override
+        public void onCompleted() {
+        }
 
+        @Override
+        public void onError(Throwable e) {
+            view.setText("Ошибка!");
+            view.showProgressBar();
+        }
+
+        @Override
+        public void onNext(StringProfile stringProfile) {
+            view.addText("id " + stringProfile.getId() + ", name " + stringProfile.getName());
+        }
+    }
 }
 

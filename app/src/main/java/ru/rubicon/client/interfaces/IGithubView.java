@@ -6,6 +6,7 @@ package ru.rubicon.client.interfaces;
 
 public interface IGitHubView {
     void setText(String string);
+    void addText(String string);
     String getOwnerName();
     String getPassword();
     String getRepoName();

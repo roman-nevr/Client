@@ -1,77 +1,53 @@
 package ru.rubicon.client.implementations;
 
-import android.util.Base64;
-import android.util.Log;
+import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
-import java.util.List;
-
-import okhttp3.Authenticator;
-import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.Route;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
-import ru.rubicon.client.model.git.Gist;
-import ru.rubicon.client.model.git.GitUser;
+import ru.rubicon.client.model.Metadata;
+import ru.yoursolution.servermodule.okhttp.OkHttpTestMoon;
+
+import static ru.rubicon.client.Basement.logger;
 
 /**
  * Created by Admin on 14.12.2016.
  */
 
 public class MoonServiceGenerator {
-    public static final String API_BASE_URL = "http://moon/Test/";
-    private static OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
+    public static final String API_BASE_URL = "http://moon/Test/odata/standard.odata/";
+    private static final OkHttpClient.Builder httpClientBuilder =
+            OkHttpTestMoon.getClientBuilder();
+    private static final String FORMAT = "?$format=application/json";
+
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
-                    .baseUrl(API_BASE_URL);
+                    .baseUrl(API_BASE_URL)
+            .addConverterFactory(GsonConverterFactory
+                    .create(/*new GsonBuilder()
+                    .setLenient().create()*/));
 
     public static <S> S createService(Class<S> serviceClass) {
-        Retrofit retrofit = builder.client(httpClientBuilder.build()).build();
-        return retrofit.create(serviceClass);
-    }
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(
+                message -> logger.log(message))
+                .setLevel(HttpLoggingInterceptor.Level.HEADERS);
 
-    public static <S> S createService(Class<S> serviceClass, final String username, final String password) {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Log.d("okHTTP", message);
-            }
-        });
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClientBuilder.addInterceptor(interceptor);
-        if (username != null && password != null) {
-            String credentials = username + ":" + password;
-            final String basic =
-                    "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
-        }
-        OkHttpClient httpClient = httpClientBuilder.authenticator(new Authenticator() {
-            @Override
-            public Request authenticate(Route route, Response response) throws IOException {
-                String credential = Credentials.basic(username, password);
-                return response.request().newBuilder()
-                        .header("Authorization", credential)
-                        .build();
-            }
-        }).build();
-        Retrofit retrofit = builder.client(httpClient).build();
+        OkHttpClient.Builder httpBuilder = httpClientBuilder.addInterceptor(interceptor);
+
+        Retrofit retrofit = builder.client(httpBuilder.build()).build();
         return retrofit.create(serviceClass);
     }
 
     public interface MoonApi {
-        @GET("/users/{user}")
-        Call goods(
-                @Path("user") String user
-        );
-
+        @GET(FORMAT)
+        Call<Metadata> metadata();
+        @GET("{url}" + FORMAT)
+        Call<ResponseBody> data(@Path("url") String url);
     }
 }

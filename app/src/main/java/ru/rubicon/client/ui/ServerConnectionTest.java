@@ -11,11 +11,9 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-import ru.rubicon.client.Basement;
 import ru.rubicon.client.R;
 import ru.yoursolution.servermodule.okhttp.OkHttpTest;
-
-import static ru.rubicon.client.Basement.log;
+import ru.yoursolution.servermodule.okhttp.OkHttpTestMoon;
 
 /**
  * Created by Admin on 14.12.2016.
@@ -23,7 +21,7 @@ import static ru.rubicon.client.Basement.log;
 
 public class ServerConnectionTest extends AppCompatActivity {
     EditText etField;
-    Button btnButton, button;
+    Button btnLeft, btnRight, btnCentral;
     TextView tvText;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,50 +29,65 @@ public class ServerConnectionTest extends AppCompatActivity {
         setContentView(R.layout.rx_activity_layout);
 
         etField = (EditText) findViewById(R.id.etName);
-        btnButton = (Button) findViewById(R.id.btnAdd);
+        btnLeft = (Button) findViewById(R.id.btnAdd);
         tvText = (TextView) findViewById(R.id.recyclerView);
         tvText.setMovementMethod(new ScrollingMovementMethod());
-        btnButton.setOnClickListener(v -> onClick(v));
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(o -> onButton(o));
-        button.setText("Moon");
-        btnButton.setText("GitHub");
+        btnLeft.setOnClickListener(v -> onClick(v));
+        btnCentral = (Button) findViewById(R.id.btnCentral);
+        btnCentral.setOnClickListener(o -> onCentralButton(o));
+        btnRight = (Button) findViewById(R.id.btnRight);
+        btnRight.setOnClickListener(o -> onRightButton(o));
+        btnRight.setText("Moon");
+        btnLeft.setText("GitHub");
+        btnCentral.setText("test");
+
     }
 
-    private void onButton(View o) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+    private void onCentralButton(View o) {
+        Thread thread = new TestTread() {
+            @Override public String operation() throws IOException {
                 OkHttpTest test = new OkHttpTest();
-                try {
-                    log.clear();
-                    String res = test.testAuthMoon();
-                    setText(res);
-                } catch (IOException e) {
-                    setText(e.getMessage());
-                    e.printStackTrace();
-                }
+                return test.testAuthMoon();
             }
-        });
+        };
+        thread.start();
+    }
+
+    private void onRightButton(View o) {
+        Thread thread = new TestTread() {
+            @Override public String operation() throws IOException {
+                OkHttpTestMoon test = new OkHttpTestMoon();
+                return test.testAuthMoon();
+            }
+        };
         thread.start();
     }
 
     private void onClick(View v) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+        Thread thread = new TestTread() {
+            @Override public String operation() throws IOException {
                 OkHttpTest test = new OkHttpTest();
-                try {
-                    log.clear();
-                    String res = test.testAuthGitHub();
-                    setText(res);
-                } catch (IOException e) {
-                    setText(e.getMessage());
-                    e.printStackTrace();
-                }
+                return test.testAuthGitHub();
             }
-        });
+        };
         thread.start();
+    }
+
+    private abstract class TestTread extends Thread{
+        public TestTread() {
+            super();
+        }
+        @Override public void run() {
+            try {
+                String res = operation();
+                setText(res);
+            } catch (Exception e) {
+                setText(e.getClass() + " : " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        public abstract String operation() throws IOException;
     }
 
 

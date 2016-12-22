@@ -5,6 +5,7 @@ import android.app.Application;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.logging.HttpLoggingInterceptor;
 import ru.rubicon.client.di.Components;
 import ru.rubicon.client.di.Components.IPresenterComponent;
 import ru.rubicon.client.di.Components.IGitHubComponent;
@@ -17,6 +18,7 @@ import ru.rubicon.client.di.ViewModule;
 import ru.rubicon.client.interfaces.IGitHubView;
 import ru.rubicon.client.interfaces.IShowUser;
 import ru.rubicon.client.model.StringProfileRepository;
+import ru.yoursolution.servermodule.Logger;
 
 
 /**
@@ -30,7 +32,7 @@ public class Basement extends Application {
     private static IGitHubComponent gitHubComponent;
     private static Components.IUserComponent userComponent;
     public static StringProfileRepository stringProfileRepository = new StringProfileRepository();
-    public static List<String> log = new ArrayList<>();
+    public static Logger logger = new Logger();
 
     public float getData() {
         return data;

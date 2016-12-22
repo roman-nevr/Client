@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.rubicon.client.R;
 import ru.rubicon.client.interfaces.RxConvention;
@@ -21,10 +21,10 @@ import ru.rubicon.client.ui.presenters.RxActivityPresenterImpl;
 
 public class RxActivity extends AppCompatActivity implements RxConvention.IRxActivityView {
 
-    @Bind(R.id.recyclerView)TextView tvText;
-    @Bind(R.id.btnAdd)Button btnAdd;
-    @Bind(R.id.etName)EditText etName;
-    @Bind(R.id.rlShadowRx)RelativeLayout rlShadow;
+    @BindView(R.id.recyclerView)TextView tvText;
+    @BindView(R.id.btnAdd)Button btnAdd;
+    @BindView(R.id.etName)EditText etName;
+    @BindView(R.id.rlShadowRx)RelativeLayout rlShadow;
 
     private RxConvention.IRxActivityPresenter presenter;
 

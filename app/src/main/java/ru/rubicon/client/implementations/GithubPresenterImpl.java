@@ -51,7 +51,8 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
 
     @Override
     public void requestUser(String userName) {
-        ServiceGenerator.GitAPI gitClient = ServiceGenerator.createService(ServiceGenerator.GitAPI.class);
+        ServiceGenerator.GitAPI gitClient = ServiceGenerator
+                .createService(ServiceGenerator.GitAPI.class);
 
         // асинхронный режим
         Call<GitUser> call = gitClient.user(userName);
@@ -59,7 +60,8 @@ public class GitHubPresenterImpl implements IGitHubPresenter {
         call.enqueue(new Callback<GitUser>() {
             @Override
             public void onResponse(Call<GitUser> call, Response<GitUser> response) {
-                view.setText(call.toString()+ "\n" + response.toString());
+                view.hideProgressBar();
+                view.setText(call.toString()+ "\n" + response.body().toString());
             }
 
             @Override

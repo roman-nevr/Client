@@ -25,6 +25,8 @@ import ru.rubicon.client.implementations.adapters.MetadataAdapter;
 import ru.rubicon.client.interfaces.IOnItemClick;
 import ru.rubicon.client.model.Metadata;
 import ru.yoursolution.servermodule.okhttp.MetaOData;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static ru.rubicon.client.Basement.logger;
 
@@ -37,13 +39,14 @@ public class MetadataUi extends AppCompatActivity implements IOnItemClick, View.
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.tvError) TextView tvError;
+    private boolean repeat = false;
 
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.metadata_ui_activity);
         ButterKnife.bind(this);
         tvError.setMovementMethod(new ScrollingMovementMethod());
-        loadData();
+        rxLoadData();
         /*Gson gson = new GsonBuilder().create();
         Metadata metadata = gson.fromJson(MetaOData.data, Metadata.class);*/
     }
@@ -60,14 +63,42 @@ public class MetadataUi extends AppCompatActivity implements IOnItemClick, View.
                 hideProgress();
                 recyclerView.setAdapter(new MetadataAdapter(response.body().getValue(),
                         MetadataUi.this));
+                repeat = true;
             }
 
             @Override public void onFailure(Call<Metadata> call, Throwable t) {
-                showError("\nrequest headers" + call.request().headers().toString()
-                        + "\nerror" + t.getMessage());
+                if (repeat == true){
+                    repeat = false;
+                    loadData();
+                }else {
+                    showError("\nrequest headers" + call.request().headers().toString()
+                            + "\nerror" + t.getMessage());
+                }
             }
         });
     }
+
+    private void rxLoadData(){
+        showProgress();
+        MoonServiceGenerator.MoonApi moonApi = MoonServiceGenerator
+                .createService(MoonServiceGenerator.MoonApi.class);
+        moonApi.rxMetadata()
+                .repeat(2)
+                .subscribeOn(Schedulers.io())  // execute the call asynchronously
+                .observeOn(AndroidSchedulers.mainThread())  // handle the results in the ui thread
+                .subscribe(this::onComplete, this::onError);
+    }
+
+    private void onComplete(Metadata metadata) {
+        hideProgress();
+        recyclerView.setAdapter(new MetadataAdapter(metadata.getValue(),
+                MetadataUi.this));
+    }
+
+    private void onError(Throwable throwable) {
+        showError(throwable.getClass() + ":" + throwable.getMessage());
+    }
+
 
     private void hideProgress() {
         progressBar.setVisibility(View.GONE);
@@ -101,6 +132,6 @@ public class MetadataUi extends AppCompatActivity implements IOnItemClick, View.
 
     @Override public void onClick(View v) {
         logger.clear();
-        loadData();
+        rxLoadData();
     }
 }

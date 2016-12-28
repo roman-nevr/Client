@@ -44,7 +44,8 @@ public class OkHttpTestMoon {
     }
 
     public static OkHttpClient.Builder getClientBuilder(){
-        return getBuilder().addInterceptor(new AuthInterceptor("Администратор", "1"));
+        return getBuilder()
+                .addInterceptor(new AuthInterceptor("Администратор", "1"));
     }
 
     // code request code here
@@ -101,6 +102,7 @@ public class OkHttpTestMoon {
         return "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
     }
     private static class AuthInterceptor implements Interceptor {
+        private boolean retry = true;
         private String username, password;
 
         public AuthInterceptor(String username, String password) {
@@ -113,8 +115,26 @@ public class OkHttpTestMoon {
             String credential = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
             Request request = chain.request().newBuilder()
                     .header("Authorization", credential).build();
-            Response response = chain.proceed(request);
+            Response response;
+            if(retry){
+                try {
+                    response = chain.proceed(request);
+                }catch (SocketTimeoutException e){
+                    response = chain.proceed(request);
+                }
+            }else{
+                response = chain.proceed(request);
+                retry = true;
+            }
             return response;
+        }
+    }
+
+    private static class TimeOutInterceptor implements Interceptor{
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            return null;
         }
     }
 

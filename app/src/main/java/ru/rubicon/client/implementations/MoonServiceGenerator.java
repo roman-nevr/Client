@@ -7,11 +7,13 @@ import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import ru.rubicon.client.model.Metadata;
 import ru.yoursolution.servermodule.okhttp.OkHttpTestMoon;
+import rx.Observable;
 
 import static ru.rubicon.client.Basement.logger;
 
@@ -29,8 +31,9 @@ public class MoonServiceGenerator {
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
-            .addConverterFactory(GsonConverterFactory
-                    .create(/*new GsonBuilder()
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory
+                            .create(/*new GsonBuilder()
                     .setLenient().create()*/));
 
     public static <S> S createService(Class<S> serviceClass) {
@@ -47,6 +50,10 @@ public class MoonServiceGenerator {
     public interface MoonApi {
         @GET(FORMAT)
         Call<Metadata> metadata();
+
+        @GET(FORMAT)
+        Observable<Metadata> rxMetadata();
+
         @GET("{url}" + FORMAT)
         Call<ResponseBody> data(@Path("url") String url);
     }

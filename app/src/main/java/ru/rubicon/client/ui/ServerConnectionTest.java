@@ -19,7 +19,7 @@ import ru.yoursolution.servermodule.okhttp.OkHttpTestMoon;
  * Created by Admin on 14.12.2016.
  */
 
-public class ServerConnectionTest extends AppCompatActivity {
+public class ServerConnectionTest extends AppCompatActivity implements MessageDialogFragment.MessageCallBack {
     EditText etField;
     Button btnLeft, btnRight, btnCentral;
     TextView tvText;
@@ -32,7 +32,7 @@ public class ServerConnectionTest extends AppCompatActivity {
         btnLeft = (Button) findViewById(R.id.btnAdd);
         tvText = (TextView) findViewById(R.id.recyclerView);
         tvText.setMovementMethod(new ScrollingMovementMethod());
-        btnLeft.setOnClickListener(v -> onClick(v));
+        btnLeft.setOnClickListener(v -> onLeftClick(v));
         btnCentral = (Button) findViewById(R.id.btnCentral);
         btnCentral.setOnClickListener(o -> onCentralButton(o));
         btnRight = (Button) findViewById(R.id.btnRight);
@@ -63,7 +63,7 @@ public class ServerConnectionTest extends AppCompatActivity {
         thread.start();
     }
 
-    private void onClick(View v) {
+    private void onLeftClick(View v) {
         Thread thread = new TestTread() {
             @Override public String operation() throws IOException {
                 OkHttpTest test = new OkHttpTest();
@@ -71,6 +71,12 @@ public class ServerConnectionTest extends AppCompatActivity {
             }
         };
         thread.start();
+        /*MessageDialogFragment fragment = MessageDialogFragment.newInstance("Hello, world", 0);
+        fragment.show(getSupportFragmentManager(), "ask");*/
+    }
+
+    @Override public void onMessageButtonClick(int id) {
+
     }
 
     private abstract class TestTread extends Thread{

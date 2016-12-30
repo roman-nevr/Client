@@ -286,6 +286,27 @@ http://moon/Test/odata/standard.odata/Document_РасходныйОрдер?$for
 * */
 
 /*
+"Parent@navigationLinkUrl": "Catalog_Номенклатура(guid'f8c956ea-cdad-11e6-aede-5404a6b4b8ed')/Parent"
+{
+"odata.metadata": "http://moon/Test/odata/standard.odata/$metadata#Catalog_Номенклатура/@Element",
+"Predefined": false,
+"Description": "НеЖенскиеНеСумки",
+"DataVersion": "AAAACgAAAAA=",
+"Ref_Key": "f8c956e9-cdad-11e6-aede-5404a6b4b8ed",
+"СерийныйУчет": false,
+"Code": "00000000004",
+"DeletionMark": false,
+"Весовой": null,
+"Parent_Key": "00000000-0000-0000-0000-000000000000",
+"Артикул": null,
+"IsFolder": true,
+"PredefinedDataName": "",
+"ЕдиницаИзмеренияДляСравненияОтгрузок_Key": null,
+"Картинки": []
+}
+ */
+
+/*
 http://moon/Test/odata/standard.odata/Catalog_Номенклатура(guid'68c21ae9-cd73-11e6-aede-5404a6b4b8ed')/ЕдиницаИзмеренияДляСравненияОтгрузок?$format=application/json
 {
 "odata.metadata": "http://moon/Test/odata/standard.odata/$metadata#Catalog_ЕдиницыИзмерения/@Element",
@@ -379,6 +400,89 @@ http://moon/Test/odata/standard.odata/Catalog_ЕдиницыИзмерения?$
 "Predefined": false,
 "PredefinedDataName": "",
 "Owner@navigationLinkUrl": "Catalog_ЕдиницыИзмерения(guid'e614152d-cdcc-11e6-aede-5404a6b4b8ed')/Owner"
+}]
+}
+ */
+/*
+{
+"odata.metadata": "http://moon/Test/odata/standard.odata/$metadata#Catalog_Номенклатура",
+"value": [{
+"Ref_Key": "b837edfc-c36d-11e6-aede-5404a6b4b8ed",
+"DataVersion": "AAAABQAAAAA=",
+"DeletionMark": false,
+"Parent_Key": "00000000-0000-0000-0000-000000000000",
+"IsFolder": true,
+"Code": "00000000001",
+"Description": "Женские сумки",
+"Артикул": null,
+"ЕдиницаИзмеренияДляСравненияОтгрузок_Key": null,
+"Весовой": null,
+"СерийныйУчет": true,
+"Картинки": [],
+"Predefined": false,
+"PredefinedDataName": ""
+},{
+"Ref_Key": "b1c89d95-cb6a-11e6-aede-5404a6b4b8ed",
+"DataVersion": "AAAAAwAAAAA=",
+"DeletionMark": false,
+"Parent_Key": "00000000-0000-0000-0000-000000000000",
+"IsFolder": true,
+"Code": "00000000002",
+"Description": "НеЖенскиеСумки",
+"Артикул": null,
+"ЕдиницаИзмеренияДляСравненияОтгрузок_Key": null,
+"Весовой": null,
+"СерийныйУчет": false,
+"Картинки": [],
+"Predefined": false,
+"PredefinedDataName": ""
+},{
+"Ref_Key": "68c21ae9-cd73-11e6-aede-5404a6b4b8ed",
+"DataVersion": "AAAACAAAAAA=",
+"DeletionMark": false,
+"Parent_Key": "00000000-0000-0000-0000-000000000000",
+"IsFolder": false,
+"Code": "00000000003",
+"Description": "Тестовый товар 1",
+"Артикул": "12233324",
+"ЕдиницаИзмеренияДляСравненияОтгрузок_Key": "68c21aea-cd73-11e6-aede-5404a6b4b8ed",
+"Весовой": true,
+"СерийныйУчет": null,
+"Картинки": [],
+"Predefined": false,
+"PredefinedDataName": "",
+"ЕдиницаИзмеренияДляСравненияОтгрузок@navigationLinkUrl": "Catalog_Номенклатура(guid'68c21ae9-cd73-11e6-aede-5404a6b4b8ed')/ЕдиницаИзмеренияДляСравненияОтгрузок"
+},{
+"Ref_Key": "f8c956e9-cdad-11e6-aede-5404a6b4b8ed",
+"DataVersion": "AAAACgAAAAA=",
+"DeletionMark": false,
+"Parent_Key": "00000000-0000-0000-0000-000000000000",
+"IsFolder": true,
+"Code": "00000000004",
+"Description": "НеЖенскиеНеСумки",
+"Артикул": null,
+"ЕдиницаИзмеренияДляСравненияОтгрузок_Key": null,
+"Весовой": null,
+"СерийныйУчет": false,
+"Картинки": [],
+"Predefined": false,
+"PredefinedDataName": ""
+},{
+"Ref_Key": "f8c956ea-cdad-11e6-aede-5404a6b4b8ed",
+"DataVersion": "AAAADAAAAAA=",
+"DeletionMark": false,
+"Parent_Key": "f8c956e9-cdad-11e6-aede-5404a6b4b8ed",
+"IsFolder": false,
+"Code": "00000000005",
+"Description": "НеЖенскаяНеСумка",
+"Артикул": "412",
+"ЕдиницаИзмеренияДляСравненияОтгрузок_Key": "00000000-0000-0000-0000-000000000000",
+"Весовой": true,
+"СерийныйУчет": null,
+"Картинки": [],
+"Predefined": false,
+"PredefinedDataName": "",
+"Parent@navigationLinkUrl": "Catalog_Номенклатура(guid'f8c956ea-cdad-11e6-aede-5404a6b4b8ed')/Parent"
 }]
 }
  */

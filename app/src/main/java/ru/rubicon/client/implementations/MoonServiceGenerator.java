@@ -1,7 +1,5 @@
 package ru.rubicon.client.implementations;
 
-import com.google.gson.GsonBuilder;
-
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -11,7 +9,8 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import ru.rubicon.client.model.Metadata;
+import ru.rubicon.client.model.odata.Metadata;
+import ru.rubicon.client.model.odata.NomenclatureElement;
 import ru.yoursolution.servermodule.okhttp.OkHttpTestMoon;
 import rx.Observable;
 
@@ -56,5 +55,8 @@ public class MoonServiceGenerator {
 
         @GET("{url}" + FORMAT)
         Call<ResponseBody> data(@Path("url") String url);
+
+        @GET("Document_РасходныйОрдер" + FORMAT)
+        Call<NomenclatureElement>
     }
 }

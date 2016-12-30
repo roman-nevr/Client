@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.rubicon.client.R;
 import ru.rubicon.client.interfaces.IOnItemClick;
-import ru.rubicon.client.model.MetadataValue;
+import ru.rubicon.client.model.odata.MetadataValue;
 
 public class MetadataAdapter extends RecyclerView.Adapter<MetadataAdapter.MyHolder>{
     private List<MetadataValue> values;

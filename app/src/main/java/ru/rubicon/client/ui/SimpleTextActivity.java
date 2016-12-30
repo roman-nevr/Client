@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
@@ -20,8 +19,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ru.rubicon.client.R;
 import ru.rubicon.client.implementations.MoonServiceGenerator;
-import ru.rubicon.client.implementations.adapters.MetadataAdapter;
-import ru.rubicon.client.model.Metadata;
 
 import static ru.rubicon.client.Basement.logger;
 

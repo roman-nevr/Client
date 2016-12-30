@@ -10,21 +10,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.rubicon.client.Basement;
 import ru.rubicon.client.R;
 import ru.rubicon.client.implementations.MoonServiceGenerator;
 import ru.rubicon.client.implementations.adapters.MetadataAdapter;
 import ru.rubicon.client.interfaces.IOnItemClick;
-import ru.rubicon.client.model.Metadata;
-import ru.yoursolution.servermodule.okhttp.MetaOData;
+import ru.rubicon.client.model.odata.Metadata;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 

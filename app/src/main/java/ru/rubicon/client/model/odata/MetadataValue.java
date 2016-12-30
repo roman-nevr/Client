@@ -1,4 +1,4 @@
-package ru.rubicon.client.model;
+package ru.rubicon.client.model.odata;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

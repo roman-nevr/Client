@@ -9,13 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.security.auth.Subject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.converter.gson.GsonConverterFactory;
-import ru.rubicon.client.implementations.observables.Observables;
+import ru.rubicon.client.data.ServiceGenerator;
 import ru.rubicon.client.interfaces.IGitHubPresenter;
 import ru.rubicon.client.interfaces.IGitHubView;
 import ru.rubicon.client.model.StringProfile;
@@ -23,10 +21,8 @@ import ru.rubicon.client.model.git.File;
 import ru.rubicon.client.model.git.Files;
 import ru.rubicon.client.model.git.Gist;
 import ru.rubicon.client.model.git.GitUser;
-import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.subjects.PublishSubject;
 
 /**

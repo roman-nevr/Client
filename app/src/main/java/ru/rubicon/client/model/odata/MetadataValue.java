@@ -6,10 +6,8 @@ import com.google.gson.annotations.SerializedName;
 public class MetadataValue {
 
     @SerializedName("name")
-    @Expose
     private String name;
     @SerializedName("url")
-    @Expose
     private String url;
 
     /**

@@ -7,10 +7,8 @@ import com.google.gson.annotations.SerializedName;
 public class Metadata {
 
     @SerializedName("odata.metadata")
-    @Expose
     private String odataMetadata;
     @SerializedName("value")
-    @Expose
     private List<MetadataValue> value = null;
 
     /**

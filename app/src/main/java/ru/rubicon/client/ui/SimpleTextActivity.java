@@ -18,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.rubicon.client.R;
-import ru.rubicon.client.implementations.MoonServiceGenerator;
+import ru.rubicon.client.data.MoonServiceGenerator;
 
 import static ru.rubicon.client.Basement.logger;
 
@@ -29,6 +29,7 @@ import static ru.rubicon.client.Basement.logger;
 public class SimpleTextActivity extends AppCompatActivity {
     @BindView(R.id.tvText) TextView tvText;
     public static final String TEXT = "text";
+    public static final String ID = "id";
 
     public static void start(Context context, String text) {
         Intent intent = new Intent(context, SimpleTextActivity.class);

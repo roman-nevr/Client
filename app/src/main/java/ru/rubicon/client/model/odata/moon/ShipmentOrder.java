@@ -1,4 +1,4 @@
-package ru.rubicon.client.model.odata;
+package ru.rubicon.client.model.odata.moon;
 
 /**
  * Created by Admin on 30.12.2016.

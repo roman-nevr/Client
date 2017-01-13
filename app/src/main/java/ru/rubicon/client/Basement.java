@@ -2,6 +2,9 @@ package ru.rubicon.client;
 
 import android.app.Application;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class Basement extends Application {
     private static Components.IUserComponent userComponent;
     public static StringProfileRepository stringProfileRepository = new StringProfileRepository();
     public static Logger logger = new Logger();
+    public static Gson gson = new GsonBuilder().create();
 
     public float getData() {
         return data;

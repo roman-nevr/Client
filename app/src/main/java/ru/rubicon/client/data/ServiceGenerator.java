@@ -1,4 +1,4 @@
-package ru.rubicon.client.implementations;
+package ru.rubicon.client.data;
 
 /**
  * Created by Витя on 01.11.2016.
